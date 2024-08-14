@@ -7,6 +7,7 @@ export const config = {
   api: {
     bodyParser: false,
   },
+  maxDuration: 600,
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -16,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const form = new formidable.IncomingForm();
-    form.parse(req, async (err, fields, files) => {
+    form.parse(req, async (err: any, fields: any, files: any) => {
       if (err) {
         return res.status(500).json({ error: 'Error parsing form data' });
       }
