@@ -34,7 +34,7 @@ export default function UploadSection({ onAnalysisComplete }) {
     <div className="grid gap-4">
       <h2 className="text-2xl font-bold">Upload Your Groceries</h2>
       <p className="text-muted-foreground">
-        Take photos of your groceries and we'll identify the ingredients and provide recipe suggestions.
+        Take photos of your groceries and we will identify the ingredients and provide recipe suggestions.
       </p>
       <div className="grid gap-4">
         <div className="flex items-center justify-center bg-muted rounded-lg p-8">
