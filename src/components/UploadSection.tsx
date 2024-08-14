@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button"
 import { UploadIcon, CameraIcon } from '@/components/Icons'
 import { useState } from 'react'
-import { analyzeGroceryPhoto } from '@/app/actions'
 
 export default function UploadSection({ onAnalysisComplete }: { onAnalysisComplete: (result: any) => void }) {
   const [isUploading, setIsUploading] = useState(false);
@@ -19,9 +18,16 @@ export default function UploadSection({ onAnalysisComplete }: { onAnalysisComple
     setIsUploading(true);
     const formData = new FormData();
     formData.append('file', file);
-
+  
     try {
-      const result = await analyzeGroceryPhoto(formData);
+      const response = await fetch('/api/analyzeGroceryPhoto', {
+        method: 'POST',
+        body: formData,
+      });
+      if (!response.ok) {
+        throw new Error('Failed to analyze photo');
+      }
+      const result = await response.json();
       onAnalysisComplete(result);
     } catch (error) {
       console.error('Error uploading file:', error);
