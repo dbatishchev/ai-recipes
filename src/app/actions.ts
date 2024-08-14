@@ -3,9 +3,6 @@
 import { OpenAI } from 'openai';
 import * as fs from 'fs';
 
-export const runtime = 'edge'; // Add this line to use Edge Runtime
-export const maxDuration = 300; // Set max duration to 5 minutes (300 seconds)
-
 export async function analyzeGroceryPhoto(formData: FormData) {
   const file = formData.get('file') as File;
   if (!file) {
