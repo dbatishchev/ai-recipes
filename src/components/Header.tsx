@@ -1,7 +1,7 @@
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { MenuIcon } from './Icons'
+import { MenuIcon } from '@/components/Icons'
 
 export default function Header() {
   return (

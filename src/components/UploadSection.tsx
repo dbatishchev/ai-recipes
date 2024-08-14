@@ -5,7 +5,7 @@ import { UploadIcon, CameraIcon } from '@/components/Icons'
 import { useState } from 'react'
 import { analyzeGroceryPhoto } from '@/app/actions'
 
-export default function UploadSection({ onAnalysisComplete }) {
+export default function UploadSection({ onAnalysisComplete }: { onAnalysisComplete: (result: any) => void }) {
   const [isUploading, setIsUploading] = useState(false);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {

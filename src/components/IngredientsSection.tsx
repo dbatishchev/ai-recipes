@@ -1,4 +1,4 @@
-export default function IngredientsSection({ ingredients }: { ingredients: { name: string; amount: string }[] }) {
+export default function IngredientsSection({ ingredients }: { ingredients: string[] }) {
   return (
     <div className="grid gap-6 p-4">
       <h2 className="text-3xl font-bold">Your Ingredients</h2>

@@ -8,7 +8,7 @@ import IngredientsSection from '@/components/IngredientsSection'
 import RecipesSection from '@/components/RecipesSection'
 
 export function MainPage() {
-  const [analysisResult, setAnalysisResult] = useState(null);
+  const [analysisResult, setAnalysisResult] = useState<any>(null);
 
   const handleAnalysisComplete = (result: any) => {
     console.log("Analysis complete", result);

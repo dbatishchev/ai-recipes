@@ -6,7 +6,7 @@ import { RecipeModal } from "@/components/RecipeModal";
 export default function RecipesSection({ recipes, additionalRecipes }: { recipes: any[], additionalRecipes: any[] }) {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
-  const handleViewRecipe = (recipe) => {
+  const handleViewRecipe = (recipe: any) => {
     setSelectedRecipe(recipe);
   };
 

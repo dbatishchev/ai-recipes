@@ -1,4 +1,4 @@
-export function MenuIcon(props) {
+export function MenuIcon(props: any) {
     return (
       <svg
         {...props}
@@ -19,7 +19,7 @@ export function MenuIcon(props) {
     )
   }
   
-  export function UploadIcon(props) {
+  export function UploadIcon(props: any) {
     return (
       <svg
         {...props}
@@ -40,7 +40,7 @@ export function MenuIcon(props) {
     )
   }
 
-  export function CameraIcon(props) {
+  export function CameraIcon(props: any) {
     return (
       <svg
         {...props}
