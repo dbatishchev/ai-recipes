@@ -3,6 +3,7 @@ import { OpenAI } from 'openai';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 600;
+export const runtime = 'edge';
 
 export async function POST(req: NextRequest) {
   try {
