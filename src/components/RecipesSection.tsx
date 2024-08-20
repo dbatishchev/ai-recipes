@@ -17,18 +17,18 @@ export default function RecipesSection({ recipes, additionalRecipes }: { recipes
   return (
     <div className="grid gap-4">
       <h2 className="text-2xl font-bold">Suggested Recipes</h2>
-      <p className="text-muted-foreground">
+      <p className="text-muted-foreground text-lg">
         Based on the ingredients we identified, here are some recipe suggestions.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {[...recipes, ...additionalRecipes].map((recipe, index) => (
  <Card key={index} className="bg-card text-card-foreground p-4">
             <CardHeader>
-              <CardTitle>{recipe.title}</CardTitle>
+              <CardTitle>{recipe.name}</CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-[1fr_2fr] gap-4">
               <img
-                src="/placeholder.svg"
+                src={recipe.preview}
                 alt={recipe.name}
                 width={200}
                 height={200}

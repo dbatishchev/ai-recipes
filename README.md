@@ -1,4 +1,12 @@
 # AI Recipe Suggester
+[x] fix previews
+[] fix an uploading window to appear twice
+[x] allow to upload several photos at once
+[x] fix the camera: it shouldn't go the selfie mode
+[x] render amount of ingredients
+[x] fix mobile layout
+[] show previews of the recipes
+[x] fix the layout of the recipe modal
 
 This web application uses AI to suggest recipes based on photos provided by users. It's built with TypeScript, Next.js, and chadcn UI components.
 

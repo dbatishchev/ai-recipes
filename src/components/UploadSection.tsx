@@ -1,36 +1,41 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { UploadIcon, CameraIcon } from '@/components/Icons'
-import { useState } from 'react'
+import { UploadIcon } from '@/components/Icons'
+import { useState, useRef } from 'react'
 
 export default function UploadSection({ onAnalysisComplete }: { onAnalysisComplete: (result: any) => void }) {
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      await uploadAndAnalyze(file);
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = event.target.files;
+    if (selectedFiles) {
+      const newImages = Array.from(selectedFiles).map(file => URL.createObjectURL(file));
+      setUploadedImages(prev => [...prev, ...newImages]);
+      setFiles(prev => [...prev, ...Array.from(selectedFiles)]);
     }
   };
 
-  const uploadAndAnalyze = async (file: File) => {
+  const analyzePhotos = async () => {
     setIsUploading(true);
     const formData = new FormData();
-    formData.append('file', file);
-  
+    files.forEach((file) => {
+      formData.append('files[]', file);
+    });
     try {
-      const response = await fetch('/api/analyzeGroceryPhoto', {
+      const response = await fetch('/api/analyzeGroceryPhotos', {
         method: 'POST',
         body: formData,
       });
       if (!response.ok) {
-        throw new Error('Failed to analyze photo');
+        throw new Error('Failed to analyze photos');
       }
       const result = await response.json();
       onAnalysisComplete(result);
     } catch (error) {
-      console.error('Error uploading file:', error);
+      console.error('Error analyzing photos:', error);
     } finally {
       setIsUploading(false);
     }
@@ -43,48 +48,40 @@ export default function UploadSection({ onAnalysisComplete }: { onAnalysisComple
         Take photos of your groceries and we will identify the ingredients and provide recipe suggestions.
       </p>
       <div className="grid gap-4">
-        <div className="flex items-center justify-center bg-muted rounded-lg p-8">
-          <Button size="lg" variant="outline" disabled={isUploading} onClick={() => document.getElementById('fileInput')?.click()} className="mr-4">
+        <div className="flex items-center justify-center bg-muted rounded-lg p-8 flex-wrap gap-4">
+          <Button size="lg" variant="outline" className="w-48">
+            <label className="cursor-pointer flex items-center justify-center gap-2">
             <UploadIcon className="w-6 h-6 mr-2" />
-            <label className="cursor-pointer">
-              {isUploading ? 'Uploading...' : 'Upload Photos'}
+              Upload Photos
               <input 
                 type="file" 
                 className="hidden" 
                 onChange={handleFileUpload} 
                 accept="image/*" 
-                capture="environment"
-                disabled={isUploading} 
-                id="fileInput" 
+                multiple
               />
             </label>
           </Button>
-          <Button size="lg" variant="outline" disabled={isUploading} onClick={() => document.getElementById('cameraInput')?.click()}>
-            <CameraIcon className="w-6 h-6 mr-2" />
-            Take Photo
-            <input 
-              type="file" 
-              className="hidden" 
-              onChange={handleFileUpload} 
-              accept="image/*" 
-              capture="user"
-              disabled={isUploading} 
-              id="cameraInput" 
-            />
-          </Button>
+          {files.length > 0 && (
+            <Button size="lg" onClick={analyzePhotos} disabled={isUploading}>
+              {isUploading ? 'Analyzing...' : 'Analyze Photos'}
+            </Button>
+          )}
         </div>
-        <div className="grid grid-cols-3 gap-4">
-          {[1, 2, 3].map((i) => (
-            <img
-              key={i}
-              src="/placeholder.svg"
-              alt="Grocery Image"
-              width={200}
-              height={200}
-              className="aspect-square object-cover rounded-lg"
-            />
-          ))}
-        </div>
+        {uploadedImages && (
+          <div className="grid grid-cols-3 gap-4">
+            {uploadedImages.map((imageUrl, index) => (
+              <img
+                key={index}
+                src={imageUrl}
+                alt={`Uploaded Grocery Image ${index + 1}`}
+                width={200}
+                height={200}
+                className="aspect-square object-cover rounded-lg"
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )
