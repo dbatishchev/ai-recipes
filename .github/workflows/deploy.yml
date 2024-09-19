@@ -51,11 +51,11 @@ jobs:
                   docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ai-recipes:latest
                 
                   # Stop and remove the old container
-                  docker stop your-app-container || true
-                  docker rm your-app-container || true
+                  docker stop ai-recipes-web || true
+                  docker rm ai-recipes-web || true
                 
                   # Run the new container
-                  docker run -d --name your-app-container -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME }}/ai-recipes:latest
+                  docker run -d --name ai-recipes-web -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME }}/ai-recipes:latest
                 
                   # Clean up unused Docker resources
                   docker system prune -af
