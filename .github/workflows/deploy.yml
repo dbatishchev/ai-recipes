@@ -1,0 +1,36 @@
+name: Deploy to DigitalOcean
+
+on:
+    push:
+        branches: [ main ]
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Login to DockerHub
+              uses: docker/login-action@v1
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+            - name: Build and push Docker image
+              uses: docker/build-push-action@v2
+              with:
+                  push: true
+                  tags: dbatishchev/ai-recipes:latest
+
+            - name: Deploy to DigitalOcean droplet
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.DROPLET_IP }}
+                  username: ${{ secrets.DROPLET_USERNAME }}
+                  key: ${{ secrets.DROPLET_SSH_KEY }}
+                  script: |
+                      docker pull dbatishchev/ai-recipes:latest
+                      docker stop ai-recipes-web || true
+                      docker rm ai-recipes-web || true
+                      docker run -d --name ai-recipes-web -p 80:3000 dbatishchev/ai-recipes:latest
+                      docker system prune -af
