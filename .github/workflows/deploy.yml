@@ -48,14 +48,14 @@ jobs:
                   fi
                 
                   # Pull the latest image
-                  docker pull ${{ secrets.DOCKERHUB_USERNAME }}/your-app-name:latest
+                  docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ai-recipes:latest
                 
                   # Stop and remove the old container
                   docker stop your-app-container || true
                   docker rm your-app-container || true
                 
                   # Run the new container
-                  docker run -d --name your-app-container -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME }}/your-app-name:latest
+                  docker run -d --name your-app-container -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME }}/ai-recipes:latest
                 
                   # Clean up unused Docker resources
                   docker system prune -af
