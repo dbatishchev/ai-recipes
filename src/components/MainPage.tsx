@@ -26,7 +26,6 @@ export function MainPage() {
               <IngredientsSection ingredients={analysisResult.ingredients} />
               <RecipesSection 
                 recipes={analysisResult.recipes} 
-                additionalRecipes={analysisResult.additional_recipes} 
               />
             </>
           )}

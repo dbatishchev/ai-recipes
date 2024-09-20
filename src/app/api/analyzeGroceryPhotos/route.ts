@@ -45,15 +45,6 @@ export async function POST(req: NextRequest) {
                           "instructions": ["instruction1", "instruction2", ...]
                         },
                         ...
-                      ],
-                      "additional_recipes": [
-                        {
-                          "name": "Recipe Name",
-                          "description": "Brief description of the recipe",
-                          "ingredients": [{ "name": "ingredient1", "amount": "amount1" }, { "name": "ingredient2", "amount": "amount2" }, ...],
-                          "instructions": ["instruction1", "instruction2", ...]
-                        },
-                        ...
                       ]
                     }`
             },
@@ -83,7 +74,7 @@ export async function POST(req: NextRequest) {
 
     // generate previews for each recipe
     const analysisResult = JSON.parse(jsonContent);
-    const recipes = [...analysisResult.recipes, ...analysisResult.additional_recipes];
+    const recipes = [...analysisResult.recipes];
     const previews = await Promise.all(recipes.map(async (recipe: any) => {
       return await generateImage(recipe.name, recipe.description);
     }));

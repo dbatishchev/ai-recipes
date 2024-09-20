@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { Button } from "@/components/ui/button"
 import { RecipeModal } from "@/components/RecipeModal";
 
-export default function RecipesSection({ recipes, additionalRecipes }: { recipes: any[], additionalRecipes: any[] }) {
+export default function RecipesSection({ recipes }: { recipes: any[] }) {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const handleViewRecipe = (recipe: any) => {
@@ -21,7 +21,7 @@ export default function RecipesSection({ recipes, additionalRecipes }: { recipes
         Based on the ingredients we identified, here are some recipe suggestions.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {[...recipes, ...additionalRecipes].map((recipe, index) => (
+        {recipes.map((recipe, index) => (
  <Card key={index} className="bg-card text-card-foreground p-4">
             <CardHeader>
               <CardTitle>{recipe.name}</CardTitle>
