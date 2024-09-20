@@ -58,7 +58,7 @@ jobs:
                   docker run -d --name ai-recipes-web \
                     -p 80:3000 \
                     -e OPENAI_API_KEY="${OPENAI_API_KEY}" \
-                    ${{ secrets.DOCKERHUB_USERNAME }}/your-app-name:latest
+                    ${{ secrets.DOCKERHUB_USERNAME }}/ai-recipes:latest
                 
                   # Clean up unused Docker resources
                   docker system prune -af
